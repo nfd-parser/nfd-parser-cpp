@@ -1,5 +1,6 @@
 # nfd-parser-cpp
-[java](https://github.com/nfd-parser/netdisk-fast-download)->cpp翻译过来的，Ai辅助，正在优化  
+[java](https://github.com/nfd-parser/netdisk-fast-download)
+->cpp翻译过来的，Ai辅助，正在优化  
 项目可以在C4droid下运行，需要解压安装c4droid_lib.tar.gz
 
 当前已支持蓝奏云，联想乐云(测试中)...  
