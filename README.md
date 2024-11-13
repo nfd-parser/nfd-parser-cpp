@@ -5,7 +5,7 @@
 需要解压安装c4droid_lib.tar.gz
 如何安装：
 1. 克隆或者下载本项目后，进到项目目录
-2. 终端模拟器执行命令解压 
+2. 终端模拟器执行命令解压libcurl相关库 
 ```bash
 tar xvf c4droid_lib.tar.gz
 ```
