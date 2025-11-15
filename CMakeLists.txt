@@ -1,40 +1,37 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.6)
 
 project(nfd-parser-cpp)
 
-# Set C++ standard
-set(CMAKE_CXX_STANDARD 11)
+# 设置 C++ 标准
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# Specify build directory (modern CMake supports this)
-# The build directory is typically specified when running cmake, e.g.: cmake -B build
-# But we can set a default output directory for binaries
+# 添加源码目录的包含路径
+include_directories(${CMAKE_SOURCE_DIR}/src)
+
+# 指定输出目录
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
-# Find required packages
+# 链接所需的库
 find_package(CURL REQUIRED)
 find_package(OpenSSL REQUIRED)
-find_package(PkgConfig REQUIRED)
-pkg_check_modules(JSONCPP REQUIRED jsoncpp)
 
-# Include directories
-include_directories(
-    ${CURL_INCLUDE_DIRS}
-    ${OPENSSL_INCLUDE_DIR}
-    ${JSONCPP_INCLUDE_DIRS}
+# target 链接的全部库 (等同于上面的参数)
+set(LIBRARIES
+    m
+    dl
+    log
+    z
+    curl
+    jsoncpp
+    ssl
+    crypto
 )
 
-# Source files
-set(SOURCES
-    src/ce.cpp
-    src/cow_tool.cpp
-    src/http_client_curl.cpp
-    src/letool.cpp
-    src/lztool.cpp
-    src/yetool.cpp
-)
+# 通用编译选项
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wfatal-errors")
 
-# Create executables for each source file (each has its own main)
+# 为可执行文件构建目标
 add_executable(ce src/ce.cpp)
 add_executable(cow_tool src/cow_tool.cpp)
 add_executable(http_client_curl src/http_client_curl.cpp)
@@ -42,13 +39,10 @@ add_executable(letool src/letool.cpp)
 add_executable(lztool src/lztool.cpp)
 add_executable(yetool src/yetool.cpp)
 
-# Link libraries for each executable
-# Using the required flags: -lcurl -ljsoncpp -lssl -lcrypto
-foreach(target ce cow_tool http_client_curl letool lztool yetool)
-    target_link_libraries(${target}
-        ${CURL_LIBRARIES}
-        ${JSONCPP_LIBRARIES}
-        OpenSSL::SSL
-        OpenSSL::Crypto
-    )
-endforeach()
+# 链接依赖库
+target_link_libraries(ce ${LIBRARIES})
+target_link_libraries(cow_tool ${LIBRARIES})
+target_link_libraries(http_client_curl ${LIBRARIES})
+target_link_libraries(letool ${LIBRARIES})
+target_link_libraries(lztool ${LIBRARIES})
+target_link_libraries(yetool ${LIBRARIES})
