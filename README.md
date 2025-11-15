@@ -1,6 +1,6 @@
 # nfd-parser-cpp
 [java](https://github.com/nfd-parser/netdisk-fast-download)->cpp翻译过来的，Ai辅助，正在优化  
-项目可以在C4droid下运行，依赖libcurl和jsoncpp
+项目可以在[C4droid](https://blog.qaiu.top/archives/c4droid)下运行，依赖libcurl和jsoncpp
 
 需要解压安装c4droid_lib.tar.gz
 如何安装：
